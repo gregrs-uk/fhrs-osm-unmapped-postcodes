@@ -1,0 +1,1 @@
+A script which uses [Robert Whittaker's postcode data](http://robert.mathmos.net/osm/postcodes/stats/) and [Food Hygiene Rating Scheme data](http://ratings.food.gov.uk/open-data/en-GB) to create a list (for each postal area) of the FHRS establishments that have a postcode which currently hasn't been assigned to any objects in [OpenStreetMap](http://openstreetmap.org).
