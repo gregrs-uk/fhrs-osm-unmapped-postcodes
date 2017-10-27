@@ -9,8 +9,10 @@ rm osm-num.zip
 echo "Postcode	Mapped" | cat - osm-num.dat > postcodes.tsv || exit 1
 rm osm-num.dat
 
-# get FHRS data
-psql -d gregrs_fhrs -c 'COPY (SELECT "FHRSID", "BusinessName", "PostCode" FROM fhrs_establishments) TO STDOUT CSV HEADER' > fhrs.csv || exit 1
+# get FHRS data using column names from FHRS establishments table
+# remove matched establishments because some incorrect FHRS postcodes will have
+# been corrected using not:addr:postcode
+psql -d gregrs_fhrs -c "COPY (SELECT fhrs_fhrsid AS \"FHRSID\", fhrs_name AS \"BusinessName\", fhrs_postcode AS \"PostCode\" FROM compare WHERE fhrs_fhrsid IS NOT NULL AND status != 'matched') TO STDOUT CSV HEADER" > fhrs.csv || exit 1
 
 # create empty output directory
 if [ -d output ]; then
