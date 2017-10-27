@@ -8,15 +8,17 @@ unmapped <- fhrs %>%
   filter(Mapped == 0) %>%
   select(PostCode, FHRSID, BusinessName) %>%
   mutate(Link = paste0('http://ratings.food.gov.uk/business/en-GB/', FHRSID),
-         Region = sub('^([A-Z]{1,2}).*', '\\1', PostCode)) %>%
-  arrange(PostCode)
+         PostalArea = sub('^([A-Z]{1,2}).*', '\\1', PostCode),
+	 District=as.integer(sub('[A-Z]{1,2}([0-9]{1,2}).*','\\1',PostCode))) %>%
+  arrange(PostalArea, District, PostCode) %>%
+  select(-District)
 
 quietly(
-  unmapped %>% pull(Region) %>% unique() %>%
+  unmapped %>% pull(PostalArea) %>% unique() %>%
   map(function(x)
       unmapped %>%
-      filter(Region == x) %>%
-      select(-Region) %>%
+      filter(PostalArea == x) %>%
+      select(-PostalArea) %>%
       write_csv(file.path('output',paste0('fhrs-unmapped-postcodes-',x,'.csv')))
   )
 )
