@@ -23,7 +23,3 @@ Rscript unmapped-postcodes.R || exit 1
 
 # copy output files to public_html
 cp output/*.csv ../public_html/fhrs-unmapped-postcodes/
-
-# clean up
-rm postcodes.tsv
-rm fhrs.csv
