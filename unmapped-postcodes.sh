@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ~/fhrs-unmapped-postcodes
+cd ~/fhrs-osm-unmapped-postcodes
 
 # get Robert's postcode data and remove intermediate files
 wget http://robert.mathmos.net/osm/postcodes/osm-num.zip || exit 1
