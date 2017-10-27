@@ -3,7 +3,7 @@
 cd ~/fhrs-osm-unmapped-postcodes
 
 # get Robert's postcode data and remove intermediate files
-wget http://robert.mathmos.net/osm/postcodes/osm-num.zip || exit 1
+wget -q http://robert.mathmos.net/osm/postcodes/osm-num.zip || exit 1
 unzip osm-num.zip || exit 1
 rm osm-num.zip
 echo "Postcode	Mapped" | cat - osm-num.dat > postcodes.tsv || exit 1
